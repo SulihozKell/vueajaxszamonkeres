@@ -75,6 +75,12 @@ export default {
       await this.loadData()
       this.resetForm()
     },
+    async deleteStatue(id) {
+      await fetch(`http://127.0.0.1:8000/api/statues/${id}`, {
+        method: 'DELETE'
+      })
+      await this.loadData()
+    },
     resetForm() {
       this.statue = {
         id: null,
