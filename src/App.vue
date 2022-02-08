@@ -127,12 +127,46 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #50508E;
+  font-size: larger;
+  color: #E8E7F5;
+}
 #app {
+  background-color: #7985C1;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: fit-content;
+  margin: auto;
+  padding: 10px;
+  border-radius: 5px;
+}
+table, tr, th, td {
+  border: 2px solid #211A52;
+  border-collapse: collapse;
+}
+tr, th, td {
+  padding: 4px;
+}
+input {
+  width: 95%;
+  border: none;
+  box-shadow: 0 0.1rem 1.4rem 0 #211A52;
+  padding: 0.3rem;
+}
+button {
+  cursor: pointer;
+  padding: 0.3em;
+  margin: 0.2em;
+  background-color: #211A52;
+  border: 2px solid #4053A0;
+  border-radius: 5px;
+  color: #E8E7F5;
+  font-size: smaller;
+}
+button:hover {
+    border: 2px solid #211A52;
+    background-color: #4053A0;
 }
 </style>
