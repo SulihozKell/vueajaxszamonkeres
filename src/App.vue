@@ -30,8 +30,8 @@
             <input type="number" v-model="statue.price">
           </td>
           <td>
-            <button @click="saveButton">Mentés</button>
-            <button @click="resetForm">Mégse</button>
+            <button @click="saveButton" :disabled="saving">Mentés</button>
+            <button @click="resetForm" :disabled="saving">Mégse</button>
           </td>
         </tr>
       </tbody>
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       editItem: false,
+      saving: false,
       statue: {
         id: null,
         person: '',
@@ -65,6 +66,7 @@ export default {
       this.statues = data
     },
     async newStatue() {
+      this.saving = 'disabled'
       await fetch('http://127.0.0.1:8000/api/statues', {
         method: 'POST',
         headers: {
@@ -74,6 +76,7 @@ export default {
         body: JSON.stringify(this.statue) 
       })
       await this.loadData()
+      this.saving = false
       this.resetForm()
       this.editItem = false
     },
@@ -84,6 +87,7 @@ export default {
       await this.loadData()
     },
     async saveStatue() {
+      this.saving = 'disabled'
       await fetch(`http://127.0.0.1:8000/api/statues/${this.statue.id}`, {
         method: 'PATCH',
         headers: {
@@ -93,6 +97,7 @@ export default {
         body: JSON.stringify(this.statue)
       })
       await this.loadData()
+      this.saving = false
       this.resetForm()
       this.editItem = false
     },
@@ -168,5 +173,9 @@ button {
 button:hover {
     border: 2px solid #211A52;
     background-color: #4053A0;
+}
+button:disabled {
+    border: 2px solid grey;
+    background-color: rgb(151, 151, 151);
 }
 </style>
