@@ -1,4 +1,4 @@
-# [Név]
+# Nagy Bendegúz
 
 ## Hogyan kezdj neki?
 
