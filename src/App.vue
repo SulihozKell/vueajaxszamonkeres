@@ -30,7 +30,7 @@
             <input type="number" v-model="statue.price">
           </td>
           <td>
-            <button @click="newStatue">Mentés</button>
+            <button @click="saveButton">Mentés</button>
             <button @click="resetForm">Mégse</button>
           </td>
         </tr>
@@ -48,9 +48,10 @@ export default {
   },
   data() {
     return {
+      editItem: false,
       statue: {
         id: null,
-        person: null,
+        person: '',
         height: 0,
         price: 0
       },
@@ -74,6 +75,7 @@ export default {
       })
       await this.loadData()
       this.resetForm()
+      this.editItem = false
     },
     async deleteStatue(id) {
       await fetch(`http://127.0.0.1:8000/api/statues/${id}`, {
@@ -81,12 +83,40 @@ export default {
       })
       await this.loadData()
     },
+    async saveStatue() {
+      await fetch(`http://127.0.0.1:8000/api/statues/${this.statue.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(this.statue)
+      })
+      await this.loadData()
+      this.resetForm()
+      this.editItem = false
+    },
+    async editStatue(id) {
+      let Response = await fetch(`http://127.0.0.1:8000/api/statues/${id}`)
+      let data = await Response.json()
+      this.statue = {...data}
+      this.editItem = true
+    },
     resetForm() {
       this.statue = {
         id: null,
         person: '',
         height: 0,
         price: 0
+      }
+      this.editItem = false
+    },
+    saveButton() {
+      if (this.editItem) {
+        this.saveStatue()
+      }
+      else {
+        this.newStatue()
       }
     }
   },
